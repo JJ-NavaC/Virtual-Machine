@@ -4,7 +4,6 @@
 
 #include "CU.h"
 
-
 using namespace std;
 
 CU::CU(Memory &x, ALU &y, Register &z){
@@ -16,7 +15,8 @@ CU::CU(Memory &x, ALU &y, Register &z){
 Instruction CU::fetch(){
 	cout << endl << endl << "Fetch" << endl << endl;
 	cout << memory.getInstruction(1).getInstruction() << endl;
-	registr.setMAR((int*)registr.getPC());
+	// registr.setMAR((int*)registr.getPC());
+	registr.setMAR(reinterpret_cast<int*>(registr.getPC()));
 	registr.setMBR(memory.getInstruction(1));
 	registr.setIR(memory.getInstruction(1));
 	registr.setPC(registr.getPC()+1); // Aumenta el PC (Program Counter) en +1*/	
@@ -75,3 +75,4 @@ void CU::execute(string instruction, int x, int y){
 	}	
 	registr.printR();
 }
+
