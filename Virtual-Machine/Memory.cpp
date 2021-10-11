@@ -1,15 +1,17 @@
 #include "Memory.h"
-
 using namespace std;
-
-Memory::Memory(int lines){
-	program = new string[lines];
+Memory::Memory(){
+	program = new Instruction[5];
 }
 
-void Memory::setMemory(int row ,string command){
-	program[row] = command;
+Memory::Memory(int size){
+	program = new Instruction[size];
 }
 
-string *Memory::getMemory(){
-	return program;
+void Memory::addInstruction(int id, Instruction instruction){
+	program[id] = instruction;
+}
+
+Instruction Memory::getInstruction(int id){
+	return program[id];
 }

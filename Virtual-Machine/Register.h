@@ -5,14 +5,16 @@
 #include <stddef.h>
 #include <string>
 
+#include "Instruction.h"
+
 using namespace std;
 
 class Register{
 	int pc;
-	string ir;
+	Instruction ir;
 	int acc;
-	int mar;
-	string mbr;
+	int* mar;
+	Instruction mbr;
 	int al;
 	int ah;
 	int bl;
@@ -23,20 +25,20 @@ public:
 	Register();
 	
 	int getPC();
-	string getIR();
+	Instruction getIR();
 	int getACC();
-	int getMAR();
-	string getMBR();
+	int* getMAR();
+	Instruction getMBR();
 	int getAL();
 	int getAH();
 	int getBL();
 	int getBH();
 	
 	void setPC(int);
-	void setIR(string);
+	void setIR(Instruction);
 	void setACC(int);
-	void setMAR(int);
-	void setMBR(string);
+	void setMAR(int*);
+	void setMBR(Instruction);
 	void setAL(int);
 	void setAH(int);
 	void setBL(int);

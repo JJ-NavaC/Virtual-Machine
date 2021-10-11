@@ -5,14 +5,19 @@
 #include <stddef.h>
 #include <string>
 
+#include "Instruction.h"
+
 using namespace std;
 
 class Memory{
-	string *program;
+	Instruction* program;
+	
 public:
+	Memory();
 	Memory(int);
-	void setMemory(int, string);
-	string *getMemory();
+	
+	void addInstruction(int,Instruction);
+	Instruction getInstruction(int);
 };
 
 #endif

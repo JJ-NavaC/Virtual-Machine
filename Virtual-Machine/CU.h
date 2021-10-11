@@ -1,27 +1,32 @@
 #ifndef CU_h
 #define CU_h
 
-#include <iostream>
-#include <stddef.h>
+#include <stddef.h> 
 #include <string>
-#include <sstream>
 
+#include "Instruction.h"
 #include "Memory.h"
-#include "CU.h"
-#include "Register.h"
 #include "ALU.h"
+#include "Register.h"
 
 using namespace std;
 
 class CU{	
+	Memory memory;
+	ALU alu;
+	Register registr;
 	
 public:
-	CU();
+	CU(Memory&,ALU&,Register&);
+	Instruction fetch();
+	void decode(Instruction);	
+	void execute(string,string);
+	void execute(string,int,int);
 	
-	void fetch(Memory&,Register&,ALU&);
+	/*void fetch(Memory&,Register&,ALU&);
 	void decode(string,Register&,ALU&);
 	void execute(string,string,ALU&,Register&);
-	void execute(string,int,int,ALU&,Register&);
+	void execute(string,int,int,ALU&,Register&);*/
 	
 };
 

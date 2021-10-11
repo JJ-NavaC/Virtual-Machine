@@ -4,10 +4,8 @@ using namespace std;
 
 Register::Register(){
 	pc = 1;
-	ir = "";
 	acc = 0;
 	mar = 0;
-	mbr = "";
 	al = 0;
 	ah = 0;
 	bl = 0;
@@ -17,7 +15,7 @@ Register::Register(){
 int Register::getPC(){	
 	return pc;
 }
-string Register::getIR(){
+Instruction Register::getIR(){
 	return ir;
 }
 
@@ -25,11 +23,11 @@ int Register::getACC(){
 	return acc;
 }
 
-int Register::getMAR(){
+int* Register::getMAR(){
 	return mar;
 }
 
-string Register::getMBR(){
+Instruction Register::getMBR(){
 	return mbr;
 }
 
@@ -53,7 +51,7 @@ void Register::setPC(int x){
 	pc = x;
 }
 
-void Register::setIR(string x){
+void Register::setIR(Instruction x){
 	ir = x;
 }
 
@@ -61,11 +59,11 @@ void Register::setACC(int x){
 	acc = x;
 }
 
-void Register::setMAR(int x){
+void Register::setMAR(int* x){
 	mar = x;
 }
 
-void Register::setMBR(string x){
+void Register::setMBR(Instruction x){
 	mbr = x;
 }
 
@@ -87,10 +85,10 @@ void Register::setBH(int x){
 
 void Register::printR(){
 	cout << "PC \t" << getPC() << endl;
-	cout << "IR \t" << getIR() << endl;
+	cout << "IR \t" << getIR().getInstruction() << endl;
 	cout << "ACC \t" << getACC() << endl;
 	cout << "MAR \t" << getMAR() << endl;
-	cout << "MBR \t" << getMBR() << endl;
+	cout << "MBR \t" << getMBR().getInstruction() << endl;
 	cout << "AL \t" << getAL() << endl;
 	cout << "AH \t" << getAH() << endl;
 	cout << "BL \t" << getBL() << endl;
