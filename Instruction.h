@@ -8,15 +8,23 @@
 using namespace std;
 
 class Instruction {
-	string instruction;
+	string instructionName;
+	string regist;
+	int op1, op2;
 
 public:
 	Instruction();
 	
-	void setInstruction(string);
-	string getInstruction();
+	void setInstruction(string); // START, END
+	void setInstruction(string,string,int); // MOV, STO
+	void setInstruction(string,string,int,int); // ADD, REST, MULT, DIV
+
+	string getInstructionName();
+	string getRegist();
+	int getOp1();
+	int getOp2();
 	
-	void printI();
+	void printIns();
 };
 
 

@@ -85,10 +85,10 @@ void Register::setBH(int x){
 
 void Register::printR(){
 	cout << "PC \t" << getPC() << endl;
-	cout << "IR \t" << getIR().getInstruction() << endl;
+	cout << "IR \t" << getIR().getInstructionName() << endl;
 	cout << "ACC \t" << getACC() << endl;
 	cout << "MAR \t" << getMAR() << endl;
-	cout << "MBR \t" << getMBR().getInstruction() << endl;
+	cout << "MBR \t" << getMBR().getInstructionName() << endl;
 	cout << "AL \t" << getAL() << endl;
 	cout << "AH \t" << getAH() << endl;
 	cout << "BL \t" << getBL() << endl;

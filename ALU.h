@@ -1,6 +1,7 @@
 #ifndef ALU_h
 #define ALU_h
 
+#include <stdio.h>
 #include <iostream>
 #include <stddef.h>
 

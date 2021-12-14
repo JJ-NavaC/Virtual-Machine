@@ -4,24 +4,34 @@
 #include <stddef.h> 
 #include <string>
 
-#include "Instruction.h"
 #include "Memory.h"
-#include "ALU.h"
+#include "Instruction.h"
+#include "START.h"
+#include "END.h"
+#include "ADD.h"
+#include "REST.h"
+#include "MULT.h"
+#include "DIV.h"
+#include "STO.h"
+#include "MOV.h"
 #include "Register.h"
+#include "ALU.h"
+#include "CU.h"
 
 using namespace std;
 
 class CU{	
-	Memory memory;
+	Memory program;
 	ALU alu;
 	Register registr;
 	
 public:
 	CU(Memory&,ALU&,Register&);
 	
-	Instruction fetch();
+	void fetch();
 	void decode(Instruction);	
-	void execute(string,string);
+	void execute(string);
+	void execute(string,int);
 	void execute(string,int,int);
 	
 };

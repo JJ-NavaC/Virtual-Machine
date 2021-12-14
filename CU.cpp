@@ -7,72 +7,80 @@
 using namespace std;
 
 CU::CU(Memory &x, ALU &y, Register &z){
-	memory = x;
+	program = x;
 	alu = y;
 	registr = z;
 }
 
-Instruction CU::fetch(){
-	cout << endl << endl << "Fetch" << endl << endl;
-	cout << memory.getInstruction(1).getInstruction() << endl;
+void CU::fetch(){
+	cout << endl << endl << "-------------Fetch-------------" << endl << endl;
 	// registr.setMAR((int*)registr.getPC());
 	registr.setMAR(reinterpret_cast<int*>(registr.getPC()));
-	registr.setMBR(memory.getInstruction(1));
-	registr.setIR(memory.getInstruction(1));
-	registr.setPC(registr.getPC()+1); // Aumenta el PC (Program Counter) en +1*/	
-	return memory.getInstruction(1);
+	registr.setMBR(program.getInstruction(registr.getPC()));
+	registr.setIR(program.getInstruction(registr.getPC()));	
+	decode(program.getInstruction(registr.getPC()));
 }
 void CU::decode(Instruction codedInstruction){
-	cout << endl << endl << "Decode" << endl << endl;
-	string words[5];
-	char del = ',';
-	int i=0;
-	string temp;	
-	
-	istringstream isstream(codedInstruction.getInstruction());
-	
-	while(!isstream.eof()){
-		isstream >> words[i];        
-		stringstream sstream(words[i]);
-		while (getline(sstream, words[i], del)){
-			temp = words[i];             
-		}   
-		words[i] = temp; 
-		i++;           
-	} 
-	int size = i;
-	i = 0;
-	for (int j=0; j<=size; j++){
-		cout << words[j] << endl;
+	registr.setPC(registr.getPC()+1); // Aumenta el PC (Program Counter) en +1
+	cout << endl << endl << "-------------Decode-------------" << endl << endl;	
+	cout << codedInstruction.getInstructionName() << endl;
+	cout << endl << endl << "-------------Execute-------------" << endl << endl;	
+	if(codedInstruction.getInstructionName()=="START"){
+		return;
+	} else if(codedInstruction.getInstructionName()=="END") {
+		return;
+	} else if(codedInstruction.getInstructionName()=="ADD") {
+		execute(codedInstruction.getInstructionName(), codedInstruction.getOp1(), codedInstruction.getOp2());
+	} else if(codedInstruction.getInstructionName()=="REST") {
+		execute(codedInstruction.getInstructionName(), codedInstruction.getOp1(), codedInstruction.getOp2());
+	} else if(codedInstruction.getInstructionName()=="MULT") {
+		execute(codedInstruction.getInstructionName(), codedInstruction.getOp1(), codedInstruction.getOp2());
+	} else if(codedInstruction.getInstructionName()=="DIV") {
+		execute(codedInstruction.getInstructionName(), codedInstruction.getOp1(), codedInstruction.getOp2());
+	} else if(codedInstruction.getInstructionName()=="STO") {
+		execute(codedInstruction.getRegist());
+	} else if(codedInstruction.getInstructionName()=="MOV") {		
+		execute(codedInstruction.getRegist(), codedInstruction.getOp1());
 	}
-	if(size==2){
-		execute(words[0], words[1]);
-	} else if(size==3){
-		execute(words[0], stoi(words[1]), stoi(words[2]));
-	}	
+	
 }
 
-void CU::execute(string instruction, string reg){
-	
+void CU::execute(string instruction){
+	registr.printR();
+	return;
+}
+
+void CU::execute( string reg, int x){
+	if(reg=="AL"){
+		registr.setAL(x);
+	} else if(reg=="BL"){	
+		registr.setBL(x);
+	} else if(reg=="AH"){	
+		registr.setAH(x);
+	} else if(reg=="BH"){	
+		registr.setBH(x);
+	}	
+	registr.printR();
 }
 
 void CU::execute(string instruction, int x, int y){	
-	cout << endl << endl << "Execute" << endl << endl;
-	registr.setAH(x);
-	registr.setBH(y);
-	if(instruction == "ADD"){		
-		// cout << x << " + " << y << " = " << alu.add(x,y) << endl;
+	if(instruction=="ADD"){
+		registr.setAH(x);
+		registr.setBH(y);
 		registr.setACC(alu.add(x,y));
-	} else if(instruction == "REST"){
-		// cout << x << " - " << y << " = " << alu.rest(x,y) << endl;
+	} else if (instruction=="REST"){
+		registr.setAH(x);
+		registr.setBH(y);
 		registr.setACC(alu.rest(x,y));
-	} else if(instruction == "MULT"){
-		// cout << x << " * " << y << " = " << alu.mult(x,y) << endl;
+	} else if (instruction=="MULT"){
+		registr.setAH(x);
+		registr.setBH(y);
 		registr.setACC(alu.mult(x,y));
-	} else if(instruction == "DIV"){
-		// cout << x << " / " << y << " = " << alu.div(x,y) << endl;
+	} else if (instruction=="DIV"){
+		registr.setAH(x);
+		registr.setBH(y);
 		registr.setACC(alu.div(x,y));
-	}	
+	}
 	registr.printR();
 }
 

@@ -1,7 +1,7 @@
 #include "Memory.h"
 using namespace std;
 Memory::Memory(){
-	program = new Instruction[5];
+	program = new Instruction[10];
 }
 
 Memory::Memory(int size){
